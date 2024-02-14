@@ -17,6 +17,7 @@ public class Usuario {
     private Integer id;
     @Column(unique = true, nullable = false)
     private String nome;
+    private boolean habilitado;
     @Column(nullable = false)
     private String senha;
     private String email;
