@@ -1,7 +1,6 @@
 package usuario.com.usuario.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +18,6 @@ import java.util.List;
 public class UsuarioService {
 
     private UsuarioRepository usuarioRepository;
-    private ObjectMapper objectMapper;
     private ModelMapper modelMapper;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {

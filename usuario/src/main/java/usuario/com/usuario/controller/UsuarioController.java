@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import usuario.com.usuario.model.dto.UsuarioCadastroDTO;
 import usuario.com.usuario.model.dto.UsuarioEdicaoDTO;
 import usuario.com.usuario.model.entity.Usuario;
-import usuario.com.usuario.repository.UsuarioRepository;
 import usuario.com.usuario.service.UsuarioService;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.Collection;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping
+@RequestMapping("/usuario")
 @AllArgsConstructor
 public class UsuarioController {
 
