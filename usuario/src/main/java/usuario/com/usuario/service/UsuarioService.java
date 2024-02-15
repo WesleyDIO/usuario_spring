@@ -72,7 +72,7 @@ public class UsuarioService {
 
     public void editarStatus(Integer id){
         Usuario usuario = buscarUm(id);
-        usuario.setStatus(!usuario.getStatus());
+//        usuario.setStatus(!usuario.getStatus());
         usuarioRepository.save(usuario);
     }
 

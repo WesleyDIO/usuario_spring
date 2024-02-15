@@ -9,18 +9,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-@Entity
-@Data
+
 @AllArgsConstructor
-@NoArgsConstructor
+public enum Autorizacao implements GrantedAuthority {
 
-public class Autorizacao implements GrantedAuthority {
+    GET("Get"),
+    POST("Post"),
+    PUT("Put"),
+    DELETE("Delete");
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String nome;
+    private final String nome;
 
+//    public static Autorizacao getAutorizacao(String nome){
+//        return valueOf(nome.toUpperCase());
+//    }
 
     @Override
     public String getAuthority() {

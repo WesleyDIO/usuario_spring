@@ -11,7 +11,6 @@ import usuario.com.usuario.UsuarioDetailsEntity;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "usuario")
 public class Usuario {
 
     @Id
@@ -23,11 +22,11 @@ public class Usuario {
 //    @Column(nullable = false)
 //    private String senha;
     private String email;
-    private Boolean status;
+//    private Boolean status;
     private Integer idade;
     @OneToOne(cascade = CascadeType.ALL)
     private Foto foto;
-    @OneToOne(mappedBy = "usuario")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private UsuarioDetailsEntity usuarioDetailsEntity;
 }
