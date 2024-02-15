@@ -19,6 +19,7 @@ public class UsuarioDetailsEntity implements UserDetails {
     private Integer id;
     @OneToOne(mappedBy = "usuarioDetailsEntity")
     @NonNull
+    @ToString.Exclude
     private Usuario usuario;
     private boolean enabled;
     @Column(unique = true, nullable = false, updatable = false)

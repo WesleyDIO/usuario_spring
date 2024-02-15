@@ -26,7 +26,7 @@ public class Usuario {
     private Integer idade;
     @OneToOne(cascade = CascadeType.ALL)
     private Foto foto;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private UsuarioDetailsEntity usuarioDetailsEntity;
 }
