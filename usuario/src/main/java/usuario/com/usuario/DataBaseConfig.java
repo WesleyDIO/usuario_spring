@@ -27,7 +27,7 @@ public class DataBaseConfig {
                         .accountNonExpired(true)
                         .accountNonLocked(true)
                         .credentialsNonExpired(true)
-                        .username("teste2@teste.com")
+                        .username("teste@teste.com")
                         .password("teste123")
                         .build());
 

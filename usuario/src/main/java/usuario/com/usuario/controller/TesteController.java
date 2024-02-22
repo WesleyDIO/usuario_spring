@@ -1,6 +1,8 @@
 package usuario.com.usuario.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,10 @@ public class TesteController {
 
     @GetMapping
     public String teste(){
-        return "Teste";
+        Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getPrincipal());
+        return "Teste" + auth.getName() + "!";
     }
+
 
 }
