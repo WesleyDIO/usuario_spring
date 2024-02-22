@@ -35,17 +35,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SecurityConfig{
 
-    private final AutenticacaoService autenticacaoService;
-
-    @Bean
-    public SecurityContextRepository securityContextRepository(){
-        return new HttpSessionSecurityContextRepository();
-    }
-
-    @Autowired
-    public void config(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService).passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }
+    private final SecurityContextRepository securityContextRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -54,36 +44,23 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.GET , "/teste").hasAuthority("GET")
                         .requestMatchers(HttpMethod.GET,"/teste/users").permitAll()
 //                        .requestMatchers("/teste").hasAnyAuthority("GET", "POST")
-                        .anyRequest().authenticated()
-        );
-        httpSecurity.formLogin(Customizer.withDefaults());
-        httpSecurity.logout(Customizer.withDefaults());
-//        httpSecurity.httpBasic(Customizer.withDefaults());
-        return httpSecurity.build();
+                        .anyRequest().authenticated());
+                httpSecurity.securityContext((context) -> context
+                        .securityContextRepository(securityContextRepository)
+                );
+                 httpSecurity.formLogin(Customizer.withDefaults());
+//               httpSecurity.logout(Customizer.withDefaults());
+//               httpSecurity.httpBasic(Customizer.withDefaults());
+                 return httpSecurity.build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(autenticacaoService)
 //                .passwordEncoder(NoOpPasswordEncoder.getInstance());
 //    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return autenticacaoService;
-//    }
-
-
 
 //    @Bean
 //    public UserDetailsManager inMemoryUserDetailsManager(){
