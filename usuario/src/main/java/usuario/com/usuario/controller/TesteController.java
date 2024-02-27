@@ -16,7 +16,7 @@ import usuario.com.usuario.repository.UsuarioRepository;
 @AllArgsConstructor
 public class TesteController {
 
-    @GetMapping
+    @GetMapping()
     public String teste(){
         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth.getPrincipal());

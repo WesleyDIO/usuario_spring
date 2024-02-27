@@ -43,7 +43,7 @@ public class SecurityConfig{
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                        .requestMatchers(HttpMethod.GET , "/teste").hasAuthority("GET")
+                        .requestMatchers(HttpMethod.GET , "/teste").hasAuthority("Get")
                         .requestMatchers(HttpMethod.GET,"/teste/users").permitAll()
 //                        .requestMatchers("/teste").hasAnyAuthority("GET", "POST")
                         .anyRequest().authenticated());
