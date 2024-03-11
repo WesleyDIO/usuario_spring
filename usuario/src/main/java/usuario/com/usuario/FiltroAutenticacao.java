@@ -31,20 +31,23 @@ public class FiltroAutenticacao extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        //Busca e validação do token
-        Cookie cookie = cookieUtil.getCookie(request,"JWT");
-        String token = cookie.getValue();
-        String username = jwtUtil.getUsername(token);
+        if(!rotaPublica(request)) {
+            //Busca e validação do token
+            Cookie cookie = cookieUtil.getCookie(request, "JWT");
+            String token = cookie.getValue();
+            String username = jwtUtil.getUsername(token);
 
-        //Criação do usuário autenticado
-        UserDetails user = userDetailsService.loadUserByUsername(username);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user,user.getPassword(), user.getAuthorities());
+            //Criação do usuário autenticado
+            UserDetails user = userDetailsService.loadUserByUsername(username);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
 
-        // Salvamento do usuário autenticado no Security Context
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authentication);
-        securityContextRepository.saveContext(context,request,response);
-        filterChain.doFilter(request,response);
+            // Salvamento do usuário autenticado no Security Context
+            SecurityContext context = SecurityContextHolder.createEmptyContext();
+            context.setAuthentication(authentication);
+            securityContextRepository.saveContext(context, request, response);
+        }
+            filterChain.doFilter(request, response);
+
     }
 
     private boolean rotaPublica(HttpServletRequest request){

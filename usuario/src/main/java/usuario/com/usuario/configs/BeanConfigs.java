@@ -15,14 +15,24 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import usuario.com.usuario.AutenticacaoService;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Configuration
 public class BeanConfigs {
 
     private final AutenticacaoService autenticacaoService;
-
+    @Bean
+    public CorsConfigurationSource corsConfig(){
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setAllowedOrigins(List.of("http://localhost:8086"));
+        corsConfig.setAllowedMethods(List.of("POST","GET",""));
+        corsConfig.setAllowCredentials(true);
+    }
     @Bean
     public SecurityContextRepository securityContextRepository(){
         return new HttpSessionSecurityContextRepository();
