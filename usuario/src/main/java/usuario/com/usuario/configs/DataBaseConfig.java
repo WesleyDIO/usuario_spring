@@ -1,9 +1,11 @@
-package usuario.com.usuario;
+package usuario.com.usuario.configs;
 
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import usuario.com.usuario.Autorizacao;
+import usuario.com.usuario.details.UsuarioDetailsEntity;
 import usuario.com.usuario.model.entity.Usuario;
 import usuario.com.usuario.repository.UsuarioRepository;
 
@@ -28,7 +30,7 @@ public class DataBaseConfig {
                         .accountNonExpired(true)
                         .accountNonLocked(true)
                         .credentialsNonExpired(true)
-                        .username("teste2@teste.com")
+                        .username("teste3@teste.com")
                         .password( new BCryptPasswordEncoder().encode("teste123"))
                         .build());
 

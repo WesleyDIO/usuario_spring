@@ -1,9 +1,10 @@
-package usuario.com.usuario;
+package usuario.com.usuario.details;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.userdetails.UserDetails;
+import usuario.com.usuario.Autorizacao;
 import usuario.com.usuario.model.entity.Usuario;
 
 import java.util.Collection;

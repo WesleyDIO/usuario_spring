@@ -1,4 +1,4 @@
-package usuario.com.usuario;
+package usuario.com.usuario.configs;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import usuario.com.usuario.AutenticacaoService;
+
 @AllArgsConstructor
 @Configuration
 public class BeanConfigs {

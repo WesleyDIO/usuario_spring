@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import usuario.com.usuario.UsuarioDetailsEntity;
+import usuario.com.usuario.details.UsuarioDetailsEntity;
 
 @Entity
 @Data

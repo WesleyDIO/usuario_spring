@@ -1,4 +1,4 @@
-package usuario.com.usuario;
+package usuario.com.usuario.configs;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
