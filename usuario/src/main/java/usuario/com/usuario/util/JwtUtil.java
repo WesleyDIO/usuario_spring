@@ -1,9 +1,6 @@
 package usuario.com.usuario.util;
 
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
@@ -15,8 +12,8 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.NONE, "senha123").subject(userDetails.getUsername()).compact();
     }
 
-    public void validarToken(String token){
-         getParser().parseSignedClaims(token);
+    private Jws<Claims> validarToken(String token){
+         return getParser().parseSignedClaims(token);
     }
 
     private JwtParser getParser(){
@@ -25,7 +22,7 @@ public class JwtUtil {
 
 
     public String getUsername(String token){
-     return getParser().parseSignedClaims(token).getPayload().getSubject();
+     return validarToken(token).getPayload().getSubject();
     }
 
 }
