@@ -52,15 +52,15 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 //                        .requestMatchers("/teste").hasAnyAuthority("GET", "POST")
                         .anyRequest().authenticated());
-//                httpSecurity.securityContext((context) -> context
-//                        .securityContextRepository(securityContextRepository)
-//                );
+                httpSecurity.securityContext((context) -> context
+                        .securityContextRepository(securityContextRepository)
+                );
 //                 httpSecurity.formLogin(Customizer.withDefaults());
 //                 httpSecurity.formLogin(configurer ->{
 //                     configurer.disable();
 //                 });
                  httpSecurity.formLogin(AbstractHttpConfigurer::disable);
-                 httpSecurity.logout(Customizer.withDefaults());
+                 httpSecurity.logout(AbstractHttpConfigurer::disable);
                  httpSecurity.sessionManagement(config ->{
                      config.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                  });

@@ -21,7 +21,7 @@ public class JwtUtil {
     }
 
     public String getUsername(String token){
-     return JWT.decode(token).getSignature();
+     return JWT.decode(token).getSubject();
     }
 
 }
