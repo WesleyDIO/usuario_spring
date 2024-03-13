@@ -30,7 +30,7 @@ public class DataBaseConfig {
                         .accountNonExpired(true)
                         .accountNonLocked(true)
                         .credentialsNonExpired(true)
-                        .username("teste3@teste.com")
+                        .username("teste7@teste.com")
                         .password( new BCryptPasswordEncoder().encode("teste123"))
                         .build());
 

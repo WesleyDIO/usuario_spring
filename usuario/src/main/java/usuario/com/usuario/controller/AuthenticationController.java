@@ -16,15 +16,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import usuario.com.usuario.UsuarioLogin;
 import usuario.com.usuario.util.CookieUtil;
 import usuario.com.usuario.util.JwtUtil;
 
 @AllArgsConstructor
 @RestController
+
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -32,8 +31,9 @@ public class AuthenticationController {
     private final JwtUtil jwtUtil = new JwtUtil();
     private final CookieUtil cookieUtil = new CookieUtil();
 
-    @GetMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<String> authenticate(@RequestBody UsuarioLogin usuarioLogin, HttpServletRequest request, HttpServletResponse response){
+        System.out.println(usuarioLogin);
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(usuarioLogin.getUsername(), usuarioLogin.getPassword());
             Authentication authentication = authenticationManager.authenticate(authenticationToken);

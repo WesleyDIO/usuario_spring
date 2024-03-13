@@ -35,6 +35,7 @@ public class FiltroAutenticacao extends OncePerRequestFilter {
             //Busca e validação do token
             Cookie cookie = cookieUtil.getCookie(request, "JWT");
             String token = cookie.getValue();
+            System.out.println(token);
             String username = jwtUtil.getUsername(token);
 
             //Criação do usuário autenticado
@@ -51,6 +52,6 @@ public class FiltroAutenticacao extends OncePerRequestFilter {
     }
 
     private boolean rotaPublica(HttpServletRequest request){
-        return request.getRequestURI().equals("/login") && request.getMethod().equals("POST");
+        return (request.getRequestURI().equals("/auth/login") && request.getMethod().equals("POST"));
     }
 }

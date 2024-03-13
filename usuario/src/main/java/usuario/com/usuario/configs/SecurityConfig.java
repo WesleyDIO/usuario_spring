@@ -49,12 +49,18 @@ public class SecurityConfig{
                 authorizeRequests
                         .requestMatchers(HttpMethod.GET , "/teste").hasAuthority("Get")
                         .requestMatchers(HttpMethod.GET,"/teste/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 //                        .requestMatchers("/teste").hasAnyAuthority("GET", "POST")
                         .anyRequest().authenticated());
 //                httpSecurity.securityContext((context) -> context
 //                        .securityContextRepository(securityContextRepository)
 //                );
-                 httpSecurity.formLogin(Customizer.withDefaults());
+//                 httpSecurity.formLogin(Customizer.withDefaults());
+//                 httpSecurity.formLogin(configurer ->{
+//                     configurer.disable();
+//                 });
+                 httpSecurity.formLogin(AbstractHttpConfigurer::disable);
+                 httpSecurity.logout(Customizer.withDefaults());
                  httpSecurity.sessionManagement(config ->{
                      config.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                  });

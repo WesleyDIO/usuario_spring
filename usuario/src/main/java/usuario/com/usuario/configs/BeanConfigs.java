@@ -17,6 +17,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import usuario.com.usuario.AutenticacaoService;
 
 import java.util.List;
@@ -32,6 +33,10 @@ public class BeanConfigs {
         corsConfig.setAllowedOrigins(List.of("http://localhost:8086"));
         corsConfig.setAllowedMethods(List.of("POST","GET",""));
         corsConfig.setAllowCredentials(true);
+        corsConfig.setAllowedHeaders(List.of("*"));
+        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        corsConfigurationSource.registerCorsConfiguration("/**",corsConfig);
+        return corsConfigurationSource;
     }
     @Bean
     public SecurityContextRepository securityContextRepository(){
@@ -41,7 +46,7 @@ public class BeanConfigs {
     @Bean
     public AuthenticationManager authenticationManager(){
         DaoAuthenticationProvider dao = new DaoAuthenticationProvider();
-//        dao.setPasswordEncoder(new BCryptPasswordEncoder());
+        dao.setPasswordEncoder(new BCryptPasswordEncoder());
         dao.setUserDetailsService(autenticacaoService);
         return new ProviderManager(dao);
 
@@ -52,10 +57,10 @@ public class BeanConfigs {
 //        return autenticacaoService;
 //    }
 
-        @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
 //   @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth, AutenticacaoService autenticacaoService) throws Exception {
