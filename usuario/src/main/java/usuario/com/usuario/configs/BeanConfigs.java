@@ -33,6 +33,7 @@ public class BeanConfigs {
         corsConfig.setAllowedOrigins(List.of("http://localhost:8086"));
         corsConfig.setAllowedMethods(List.of("POST","GET",""));
         corsConfig.setAllowCredentials(true);
+
         corsConfig.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
         corsConfigurationSource.registerCorsConfiguration("/**",corsConfig);

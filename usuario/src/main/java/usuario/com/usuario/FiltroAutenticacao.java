@@ -31,27 +31,45 @@ public class FiltroAutenticacao extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        if(!rotaPublica(request)) {
+
+        if(!rotaPublica(request)){
             //Busca e validação do token
-            Cookie cookie = cookieUtil.getCookie(request, "JWT");
+            Cookie cookie;
+            try {
+                cookie = cookieUtil.getCookie(request, "JWT");
+            } catch (Exception e) {
+                response.setStatus(401);
+                return;
+            }
+
             String token = cookie.getValue();
-            System.out.println(token);
             String username = jwtUtil.getUsername(token);
 
-            //Criação do usuário autenticado
-            UserDetails user = userDetailsService.loadUserByUsername(username);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+            //criação do usuario autenticado
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            Authentication authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            userDetails.getPassword(),
+                            userDetails.getAuthorities());
 
-            // Salvamento do usuário autenticado no Security Context
+            //salvamento do usuario austenticado no Security Context
             SecurityContext context = SecurityContextHolder.createEmptyContext();
+            //seta como objeto de autenticao o objeto retornado pela autenticacao ja autenticado (que foi setado isAthenticated como true)
             context.setAuthentication(authentication);
             securityContextRepository.saveContext(context, request, response);
-        }
-            filterChain.doFilter(request, response);
 
+            // Renovação do JWT e Cookie
+            Cookie cookieRenovado = cookieUtil.gerarCookieJwt(userDetails);
+            response.addCookie(cookieRenovado);
+        }
+        //Continuação da requisição
+        filterChain.doFilter(request,response);
     }
 
+    //definir aqui todas as rotas publicas (permitAll no authFilter)
     private boolean rotaPublica(HttpServletRequest request){
-        return request.getRequestURI().equals("/auth/login") && request.getMethod().equals("POST");
+        return request.getRequestURI().equals("/auth/login");
+//                && (request.getMethod().equals("GET") || request.getMethod().equals("POST"));
     }
 }

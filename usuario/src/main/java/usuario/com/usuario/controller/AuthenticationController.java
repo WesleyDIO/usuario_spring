@@ -49,4 +49,13 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação");
         }
     }
+
+    @PostMapping("/auth/logout")
+    public void logout(HttpServletRequest request,
+                       HttpServletResponse response) {
+        response.addCookie(cookieUtil.gerarCookieNull());
+//        Cookie cookie = coookieUtil.getCookie(request, "JWT");
+//        cookie.setMaxAge(0);
+//        response.addCookie(cookie);
+    }
 }
